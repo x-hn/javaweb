@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class BaseDAO{
 
-	//指定mysql数据库驱动类
+	//指定mysql数据库驱动类  
 	private String driver="com.mysql.jdbc.Driver";
 	//指定连接数据库的数据库连接字符串
 	private String url="jdbc:mysql://127.0.0.1:3306/bms?useUnicode=yes&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true";
