@@ -81,4 +81,29 @@ public class IUserDaoImpel extends BaseDAO implements IUserInfoDao {
 		return list;
 	}
 
+	@Override
+	public userInfo login(String username, String password) {
+		userInfo userinfo = null;
+		String sql = "select * from userinfo where username=? and password=?";
+		Object[] params = new Object[] {username,password};
+		this.queryBySql(sql, params);
+		try {
+			while(rs.next()) {
+				userinfo = new userInfo();
+				userinfo.setId(rs.getInt("id"));
+				userinfo.setUsername(rs.getString("username"));
+				userinfo.setRealname(rs.getString("realname"));
+				userinfo.setEmail(rs.getString("email"));
+				userinfo.setPassword(rs.getString("password"));
+				userinfo.setRole(rs.getInt("role"));
+				userinfo.setMaxNumber(rs.getInt("maxNumber"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			this.close(conn, st, rs);
+		}
+		return userinfo;
+	}
+
 }
