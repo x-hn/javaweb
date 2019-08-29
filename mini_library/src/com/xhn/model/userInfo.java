@@ -8,6 +8,24 @@ public class userInfo {
 	private String password;
 	private int role;
 	private int maxNumber;
+	
+	private String roleName;//不会存储在数据表中，临时生成，用于页面显示，代替VO
+	
+	public userInfo(){
+		super();
+	}
+	
+	
+	public userInfo(String username, String realname, String email, String password, int role) {
+		super();
+		this.username = username;
+		this.realname = realname;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -49,6 +67,14 @@ public class userInfo {
 	}
 	public void setMaxNumber(int maxNumber) {
 		this.maxNumber = maxNumber;
+	}
+	
+
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	@Override
 	public String toString() {

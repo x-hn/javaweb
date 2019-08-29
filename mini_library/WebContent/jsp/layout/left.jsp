@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" ></c:set>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
@@ -33,30 +34,23 @@ $(function(){
     <dd>
         <div class="title"> <span><img src="${ctx}/UiMaker/images/leftico01.png" /></span>系统管理 </div>
         <ul class="menuson">
-            <li><cite></cite><a href="index.html" target="rightFrame">首页模版</a><i></i></li>
-            <li class="active"><cite></cite><a href="right.html" target="rightFrame">数据列表</a><i></i></li>
-            <li><cite></cite><a href="imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
-            <li><cite></cite><a href="form.html" target="rightFrame">添加编辑</a><i></i></li>
-            <li><cite></cite><a href="imglist.html" target="rightFrame">图片列表</a><i></i></li>
-            <li><cite></cite><a href="imglist1.html" target="rightFrame">自定义</a><i></i></li>
-            <li><cite></cite><a href="tools.html" target="rightFrame">常用工具</a><i></i></li>
-            <li><cite></cite><a href="filelist.html" target="rightFrame">信息管理</a><i></i></li>
-            <li><cite></cite><a href="tab.html" target="rightFrame">Tab页</a><i></i></li>
-            <li><cite></cite><a href="error.html" target="rightFrame">404页面</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/userServlet?type=getAll" target="rightFrame">用户管理</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/bookServlet?type=getAll" target="rightFrame">图书管理</a><i></i></li>
         </ul>
     </dd>
     <dd>
-        <div class="title"> <span><img src="${ctx}/UiMaker/images/leftico02.png" /></span>课程管理 </div>
+        <div class="title"> <span><img src="${ctx}/UiMaker/images/leftico02.png" /></span>我的借阅 </div>
         <ul class="menuson">
-            <li><cite></cite><a href="#">编辑内容</a><i></i></li>
-            <li><cite></cite><a href="#">发布信息</a><i></i></li>            
+            <li><cite></cite><a href="#">借阅记录</a><i></i></li>
+            <li><cite></cite><a href="#">未还图书</a><i></i></li>      
+            <li><cite></cite><a href="#">我的预约</a><i></i></li>        
         </ul>
     </dd>
     <dd>
         <div class="title"><span><img src="${ctx}/UiMaker/images/leftico03.png" /></span>编辑器</div>
         <ul class="menuson">
-            <li><cite></cite><a href="#">自定义</a><i></i></li>
-            <li><cite></cite><a href="#">常用资料</a><i></i></li>            
+            <li><cite></cite><a href="#">修改密码</a><i></i></li>
+            <li><cite></cite><a href="#">我的资料</a><i></i></li>            
         </ul>
     </dd>
     <dd>

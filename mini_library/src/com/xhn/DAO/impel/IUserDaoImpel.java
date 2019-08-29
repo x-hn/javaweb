@@ -57,7 +57,7 @@ public class IUserDaoImpel extends BaseDAO implements IUserInfoDao {
 
 	@Override
 	public List<userInfo> getAll() {
-		List<userInfo> list=new ArrayList<>();
+		List<userInfo> list= new ArrayList<>();
 		String sql = "select * from userinfo";
 		Object[] params = new Object[] {};
 		this.queryBySql(sql, params);
