@@ -40,10 +40,10 @@ $(document).ready(function(){
 <div class="rightinfo">
     <div class="tools">
         <ul class="toolbar">
-            <li class="click"><a href="${ctx}/jsp/user/add.jsp"><span><img src="${ctx}/UiMaker/images/t01.png" /></span>添加</a></li>
-            <li class="click"><a href="${ctx}/jsp/user/add.jsp"><span><img src="${ctx}/UiMaker/images/t02.png" /></span>修改</a></li>
-            <li><a href="${ctx}/jsp/user/add.jsp"><span><img src="${ctx}/UiMaker/images/t03.png" /></span>删除</a></li>
-            <li><a href="${ctx}/jsp/user/add.jsp"><span><img src="${ctx}/UiMaker/images/t04.png" /></span>统计</a></li>
+            <li class="click"><a href="${ctx}/jsp/book/add.jsp"><span><img src="${ctx}/UiMaker/images/t01.png" /></span>添加</a></li>
+            <li class="click"><span><img src="${ctx}/UiMaker/images/t02.png" /></span>修改</li>
+            <li><span><img src="${ctx}/UiMaker/images/t03.png" /></span>删除</li>
+            <li><span><img src="${ctx}/UiMaker/images/t04.png" /></span>统计</li>
         </ul>
         <ul class="toolbar1">
             <li><span><img src="${ctx}/UiMaker/images/t05.png" /></span>设置</li>
@@ -54,27 +54,27 @@ $(document).ready(function(){
             <tr>
                 <th><input name="" type="checkbox" value="" /></th>
                 <th>编号<i class="sort"><img src="${ctx}/UiMaker/images/px.gif" /></i></th>
-                <th>账号</th>
-                <th>姓名</th>
-                <th>邮箱</th>
-                <th>角色</th>
-                <th>最大借阅数</th>
+                <th>书名</th>
+                <th>书号</th>
+                <th>类型</th>
+                <th>作者</th>
+                <th>出版社</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="obj" items="${modelList}"> 
+            <c:forEach var="obj" items="${bookList}"> 
             <tr>
-                <td><input name="checkboxId" type="checkbox" value="${obj.id}" /></td>
+                <td><input name="" type="checkbox" value="" /></td>
                 <td>${obj.id}</td>
-                <td>${obj.username}</td>
-                <td>${obj.realname}</td>
-                <td>${obj.email}</td>
-                <td>${obj.roleName}</td>
-                <td>${obj.maxNumber}</td>
+                <td>${obj.bookName}</td>
+                <td>${obj.bookNumber}</td>
+                <td>${obj.categoryName}</td>
+                <td>${obj.author}</td>
+                <td>${obj.publisher}</td>
                 <td>
-                	<a href="" class="tablelink"> 编辑</a>
-                    <a href="${ctx}/userServlet?type=delete&id=${obj.id}" class="tablelink" onclick="return confirm('确定要删除？');"> 删除</a>
+                	<a href="#" class="tablelink"> 编辑</a>
+                    <a href="${ctx}/bookServlet?type=delete&id=${obj.id}" class="tablelink" onclick="return confirm('确定要删除？');"> 删除</a>
                     <a href="#" class="tablelink"> 重设密码</a>
                 </td>
             </tr>

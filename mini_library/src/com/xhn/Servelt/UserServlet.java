@@ -29,6 +29,8 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//将需要显示的用户信息放到session中
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		String type = request.getParameter("type");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -43,16 +45,24 @@ public class UserServlet extends HttpServlet {
 		}else if(type.equals("getAll")) {
 			getAll(request, response);
 		}else if(type.equals("add")) {
-			userInfo user = new userInfo(username, realname, email, UserConstant.DEFAULT_PASSWORD, Integer.parseInt(role));
-			if(role.equals("2")) {
-				user.setMaxNumber(UserConstant.STUDENT_MAX_NUMBER);
-			}else {
-				user.setMaxNumber(UserConstant.TEACHER_MAX_NUMBER);
-			}
-			int result = this.userService.add(user);
-			if(result>0) {
-				response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
-			}
+			add(request, response, username, realname, email, role);
+		}else if(type.equals("delete")) {
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			this.userService.delete(id);
+			response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
+		}
+	}
+	private void add(HttpServletRequest request, HttpServletResponse response, String username, String realname,
+			String email, String role) throws IOException {
+		userInfo user = new userInfo(username, realname, email, UserConstant.DEFAULT_PASSWORD, Integer.parseInt(role));
+		if(role.equals("2")) {
+			user.setMaxNumber(UserConstant.STUDENT_MAX_NUMBER);
+		}else {
+			user.setMaxNumber(UserConstant.TEACHER_MAX_NUMBER);
+		}
+		int result = this.userService.add(user);
+		if(result>0) {
+			response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
 		}
 	}
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

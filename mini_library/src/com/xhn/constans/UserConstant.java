@@ -13,4 +13,5 @@ public interface UserConstant {
 	
 	public final static int TEACHER_MAX_NUMBER=10;
 	public final static int STUDENT_MAX_NUMBER=5;
+	
 }

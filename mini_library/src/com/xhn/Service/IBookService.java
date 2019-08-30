@@ -8,4 +8,8 @@ public interface IBookService {
 
 	List<Book> getAll();
 
+	int add(Book book);
+
+	void delete(Integer id);
+
 }

@@ -12,4 +12,6 @@ public interface IUserService {
 
 	int add(userInfo user);
 
+	void delete(Integer id);
+
 }

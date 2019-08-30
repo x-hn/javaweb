@@ -22,7 +22,7 @@ import com.xhn.model.userInfo;
 public class BookServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private IBookDao book =new IBookDaoImpel();
+	//private IBookDao book =new IBookDaoImpel();
 	private IBookService bookService=new IBookServiceImpel();
 	
 	@Override
@@ -32,15 +32,40 @@ public class BookServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//将需要显示的用户信息放到session中
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		String type = request.getParameter("type");
+		String bookName = request.getParameter("bookName");
+		String bookNumber = request.getParameter("bookNumber");
+		String categoryId = request.getParameter("categoryId");
+		String author = request.getParameter("author");
+		String publisher = request.getParameter("publisher");
+		
 		
 		if(type.equals("getAll")) {
-			List<Book> bookList = this.bookService.getAll();
-			request.setAttribute("bookList", bookList);
-			
+			getAll(request, response);
+		}else if(type.equals("add")) {
+			add(request, response, bookName, bookNumber, categoryId, author, publisher);
+		}else if(type.equals("delete")) {
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			this.bookService.delete(id);
+			response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
 		}
 		
+	}
+	private void add(HttpServletRequest request, HttpServletResponse response, String bookName, String bookNumber,
+			String categoryId, String author, String publisher) throws IOException {
+		Book book = new Book(bookName, Integer.parseInt(bookNumber), Integer.parseInt(categoryId), author, publisher);
+		int res = this.bookService.add(book);
+		if(res>0) {
+			response.sendRedirect(request.getContextPath()+"/bookServlet?type=getAll");
+		}
+	}
+	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Book> bookList = this.bookService.getAll();
+		request.setAttribute("bookList", bookList);
+		request.getRequestDispatcher("/jsp/book/bookList.jsp").forward(request, response);
 	}
 	
 	

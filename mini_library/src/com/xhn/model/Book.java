@@ -8,7 +8,23 @@ public class Book {
 	private String author;//作者
 	private String publisher;//出版社	
 	
-	//private String categoryName;//分类名称
+	private String categoryName;//分类名称
+	
+	public Book() {
+		super();
+	}
+	
+	
+	public Book(String bookName, int bookNumber, int categoryId, String author, String publisher) {
+		super();
+		this.bookName = bookName;
+		this.bookNumber = bookNumber;
+		this.categoryId = categoryId;
+		this.author = author;
+		this.publisher = publisher;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -45,12 +61,12 @@ public class Book {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-//	public String getCategoryName() {
-//		return categoryName;
-//	}
-//	public void setCategoryName(String categoryName) {
-//		this.categoryName = categoryName;
-//	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", bookName=" + bookName + ", bookNumber=" + bookNumber + ", categoryId=" + categoryId

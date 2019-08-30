@@ -40,20 +40,23 @@ $(document).ready(function(e) {
     
     <div class="formtitle"><span>基本信息</span></div>
     
-    <form action="${ctx}/userServlet?type=add" method="post">
+    <form action="${ctx}/bookServlet?type=add" method="post">
 	    <ul class="forminfo">
-		    <li><label>账号</label><input name="username" type="text" class="dfinput" /><i>账号不能超过30个字符</i></li>
-		    <li><label>姓名</label><input name="realname" type="text" class="dfinput" /><i>不能使用特殊字符</i></li>
-		    <li><label>角色</label>
+		    <li><label>书名</label><input name="bookName" type="text" class="dfinput" /><i>账号不能超过30个字符</i></li>
+		    <li><label>书号</label><input name="bookNumber" type="text" class="dfinput" /><i>不能使用特殊字符</i></li>
+		    <li><label>类型号</label>
 			    <div class="vocation">
-				    <select class="select1" name="role">
-					    <option value="0">管理员</option>
-					    <option value="1">教师</option>
-					    <option value="2">学生</option>
+				    <select class="select1" name="categoryId">
+					    <option value="1">程序设计</option>
+					    <option value="2">数据库</option>
+					    <option value="3">算法</option>
+					    <option value="4">数据库</option>
+					    <option value="5">操作系统</option>
 				    </select>
 			    </div>
 		    </li>
-		    <li><label>邮件</label><input name="email" type="text" class="dfinput" /></li>
+		    <li><label>作者</label><input name="author" type="text" class="dfinput" /></li>
+		    <li><label>出版社</label><input name="publisher" type="text" class="dfinput" /></li>
 		    <li><label>&nbsp;</label><input name="button" type="submit" class="btn" value="确认保存"/></li>
 	    </ul>
     </form>
