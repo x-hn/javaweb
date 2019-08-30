@@ -16,6 +16,7 @@ import com.xhn.Service.IBookService;
 import com.xhn.Service.IUserService;
 import com.xhn.Service.impel.IBookServiceImpel;
 import com.xhn.Service.impel.IUserServiceImpel;
+import com.xhn.constans.UserConstant;
 import com.xhn.model.Book;
 import com.xhn.model.userInfo;
 @WebServlet("/bookServlet")
@@ -41,6 +42,7 @@ public class BookServlet extends HttpServlet {
 		String categoryId = request.getParameter("categoryId");
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");
+		String id = request.getParameter("id");
 		
 		
 		if(type.equals("getAll")) {
@@ -48,11 +50,22 @@ public class BookServlet extends HttpServlet {
 		}else if(type.equals("add")) {
 			add(request, response, bookName, bookNumber, categoryId, author, publisher);
 		}else if(type.equals("delete")) {
-			Integer id = Integer.parseInt(request.getParameter("id"));
-			this.bookService.delete(id);
-			response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
+			delete(request, response, id);
+		}else if(type.equals("get")) {
+			Book book = this.bookService.get(Integer.parseInt(id));
+			request.setAttribute("obj", book);
+			request.getRequestDispatcher("/jsp/book/editBookInfo.jsp").forward(request, response);
+		}else if(type.equals("updateBook")) {
+			Book book = new Book(bookName, Integer.parseInt(bookNumber), Integer.parseInt(categoryId), author, publisher);
+			book.setId(Integer.parseInt(id));
+			this.bookService.update(book);
+			request.getRequestDispatcher("/bookServlet?type=getAll").forward(request, response);
 		}
 		
+	}
+	private void delete(HttpServletRequest request, HttpServletResponse response, String id) throws IOException {
+		this.bookService.delete(Integer.parseInt(id));
+		response.sendRedirect(request.getContextPath()+"/bookServlet?type=getAll");
 	}
 	private void add(HttpServletRequest request, HttpServletResponse response, String bookName, String bookNumber,
 			String categoryId, String author, String publisher) throws IOException {

@@ -46,4 +46,14 @@ public class IUserServiceImpel implements IUserService {
 		this.userinfo.delete(id);
 	}
 
+	@Override
+	public userInfo get(int id) {
+		return this.userinfo.get(id);
+	}
+
+	@Override
+	public void update(userInfo user) {
+		this.userinfo.update(user);
+	}
+
 }

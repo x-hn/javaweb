@@ -12,4 +12,8 @@ public interface IBookService {
 
 	void delete(Integer id);
 
+	Book get(int parseInt);
+
+	void update(Book book);
+
 }

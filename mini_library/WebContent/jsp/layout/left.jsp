@@ -36,6 +36,7 @@ $(function(){
         <ul class="menuson">
             <li><cite></cite><a href="${ctx}/userServlet?type=getAll" target="rightFrame">用户管理</a><i></i></li>
             <li><cite></cite><a href="${ctx}/bookServlet?type=getAll" target="rightFrame">图书管理</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/categoryServlet?type=getAll" target="rightFrame">分类管理</a><i></i></li>
         </ul>
     </dd>
     <dd>

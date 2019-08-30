@@ -14,4 +14,8 @@ public interface IUserService {
 
 	void delete(Integer id);
 
+	userInfo get(int parseInt);
+
+	void update(userInfo user);
+
 }

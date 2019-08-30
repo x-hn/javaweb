@@ -37,6 +37,7 @@ public class UserServlet extends HttpServlet {
 		String realname = request.getParameter("realname");
 		String email = request.getParameter("email");
 		String role = request.getParameter("role");
+		String id = request.getParameter("id");
 		
 		if(type.equals("login")) {
 			login(request, response, username, password,session);
@@ -47,10 +48,35 @@ public class UserServlet extends HttpServlet {
 		}else if(type.equals("add")) {
 			add(request, response, username, realname, email, role);
 		}else if(type.equals("delete")) {
-			Integer id = Integer.parseInt(request.getParameter("id"));
-			this.userService.delete(id);
-			response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
+			delete(request, response,id);
+		}else if(type.equals("get")) {
+			get(request, response, id);
+		}else if(type.equals("updateUser")) {
+			updateUser(request, response, username, realname, email, role, id);
 		}
+	}
+	private void updateUser(HttpServletRequest request, HttpServletResponse response, String username, String realname,
+			String email, String role, String id) throws ServletException, IOException {
+		userInfo user = new userInfo(username, realname, email, UserConstant.DEFAULT_PASSWORD, Integer.parseInt(role));
+		user.setId(Integer.parseInt(id));
+		if(role.equals("2")) {
+			user.setMaxNumber(UserConstant.STUDENT_MAX_NUMBER);
+		}else {
+			user.setMaxNumber(UserConstant.TEACHER_MAX_NUMBER);
+		}
+		this.userService.update(user);
+		request.getRequestDispatcher("/userServlet?type=getAll").forward(request, response);
+	}
+	private void get(HttpServletRequest request, HttpServletResponse response, String id)
+			throws ServletException, IOException {
+		userInfo user = this.userService.get(Integer.parseInt(id));
+		request.setAttribute("obj", user);
+		request.getRequestDispatcher("/jsp/user/editUserInfo.jsp").forward(request, response);
+	}
+	private void delete(HttpServletRequest request, HttpServletResponse response,String id) throws IOException {
+		//检查在借阅记录中是否有该用户，
+		this.userService.delete(Integer.parseInt(id));
+		response.sendRedirect(request.getContextPath()+"/userServlet?type=getAll");
 	}
 	private void add(HttpServletRequest request, HttpServletResponse response, String username, String realname,
 			String email, String role) throws IOException {

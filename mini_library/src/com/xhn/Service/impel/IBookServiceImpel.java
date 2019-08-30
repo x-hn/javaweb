@@ -8,7 +8,6 @@ import com.xhn.DAO.impel.IBookDaoImpel;
 import com.xhn.DAO.impel.ICategoryDaoImpel;
 import com.xhn.Service.IBookService;
 import com.xhn.model.Book;
-import com.xhn.model.Category;
 
 public class IBookServiceImpel implements IBookService {
 	private IBookDao book =new IBookDaoImpel();
@@ -38,6 +37,14 @@ public class IBookServiceImpel implements IBookService {
 	@Override
 	public void delete(Integer id) {
 		this.book.delete(id);
+	}
+	@Override
+	public Book get(int id) {
+		return this.book.get(id);
+	}
+	@Override
+	public void update(Book book) {
+		this.book.update(book);
 	}
 
 }

@@ -73,7 +73,7 @@ $(document).ready(function(){
                 <td>${obj.author}</td>
                 <td>${obj.publisher}</td>
                 <td>
-                	<a href="#" class="tablelink"> 编辑</a>
+                	<a href="${ctx}/bookServlet?type=get&id=${obj.id}" class="tablelink"> 编辑</a>
                     <a href="${ctx}/bookServlet?type=delete&id=${obj.id}" class="tablelink" onclick="return confirm('确定要删除？');"> 删除</a>
                     <a href="#" class="tablelink"> 重设密码</a>
                 </td>
