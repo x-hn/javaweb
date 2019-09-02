@@ -14,4 +14,6 @@ public interface IBookDao {
 	public Book get(int id);
 	
 	public List<Book> getAll();
+
+	public List<Book> getAll(int page, int pageSizes);
 }

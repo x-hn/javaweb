@@ -10,6 +10,10 @@ public class Book {
 	
 	private String categoryName;//分类名称
 	
+	private int lendedNumber;//借书数量
+	private int remainNumber;//剩余数量
+	
+	
 	public Book() {
 		super();
 	}
@@ -66,6 +70,30 @@ public class Book {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	
+	public int getLendedNumber() {
+		return lendedNumber;
+	}
+
+
+	public void setLendedNumber(int lendedNumber) {
+		this.lendedNumber = lendedNumber;
+	}
+
+
+	public int getRemainNumber() {
+		return remainNumber;
+	}
+
+
+	public void setRemainNumber(int remainNumber) {
+		this.remainNumber = remainNumber;
+	}
+	
+
+	
+
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", bookName=" + bookName + ", bookNumber=" + bookNumber + ", categoryId=" + categoryId

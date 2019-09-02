@@ -80,4 +80,30 @@ public class IBookDaoImpel extends BaseDAO implements IBookDao {
 		return list;
 	}
 
+	@Override
+	public List<Book> getAll(int page, int pageSizes) {
+		List<Book> list=new ArrayList<>();
+		String sql="select * from book limit ?,?";
+		int beginIndex=(page-1)*pageSizes;
+		Object[] obj=new Object[] {beginIndex,pageSizes};
+		this.queryBySql(sql, obj);
+		try {
+			while(rs.next()) {
+				Book book = new Book();
+				book.setId(rs.getInt("id"));
+				book.setBookName(rs.getString("bookName"));
+				book.setBookNumber(rs.getInt("bookNumber"));
+				book.setCategoryId(rs.getInt("categoryId"));
+				book.setAuthor(rs.getString("author"));
+				book.setPublisher(rs.getString("publisher"));
+				list.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			this.close(conn, st, rs);
+		}
+		return list;
+	}
+
 }

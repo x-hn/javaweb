@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xhn.DAO.BaseDAO;
 import com.xhn.DAO.IBookDao;
 import com.xhn.DAO.impel.IBookDaoImpel;
 import com.xhn.Service.IBookService;
@@ -25,6 +26,7 @@ public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//private IBookDao book =new IBookDaoImpel();
 	private IBookService bookService=new IBookServiceImpel();
+	private BaseDAO baseDao = new BaseDAO();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -76,7 +78,39 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Book> bookList = this.bookService.getAll();
+		//当前页
+		String p=request.getParameter("page");
+		int page;
+		try {
+			page=Integer.valueOf(p);
+		} catch (Exception e) {
+			page=1;
+		}
+		//每页页数
+		int pageSizes=3;
+		//开始索引
+		int beginIndex=(page-1)*pageSizes;
+
+		List<Book> bookList = this.bookService.getAll(page,pageSizes);
+
+		String sql="SELECT COUNT(*) FROM book where 1=1";
+		Object[] obj=new Object[] {};
+		//总记录数
+		int totalRecords=baseDao.count(sql,obj);
+		//总页数
+		int totalPages=totalRecords % pageSizes ==0?totalRecords / pageSizes:totalRecords / pageSizes +1;
+		//结束索引
+		int endIndex=beginIndex+pageSizes;
+		if(endIndex>totalRecords) {
+			endIndex=totalRecords;
+		}
+		request.setAttribute("page", page);
+		request.setAttribute("totalRecords", totalRecords);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("beginIndex", beginIndex);
+		request.setAttribute("endIndex", endIndex);
+		request.setAttribute("pageSizes", pageSizes);
+		//请求转发（在请求中保存数据）
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("/jsp/book/bookList.jsp").forward(request, response);
 	}

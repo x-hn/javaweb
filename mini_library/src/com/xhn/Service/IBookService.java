@@ -16,4 +16,6 @@ public interface IBookService {
 
 	void update(Book book);
 
+	List<Book> getAll(int page, int pageSizes);
+
 }

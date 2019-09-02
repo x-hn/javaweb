@@ -39,15 +39,18 @@ $(document).ready(function(){
 </div>
 <div class="rightinfo">
     <div class="tools">
-        <ul class="toolbar">
-            <li class="click"><a href="${ctx}/jsp/book/add.jsp"><span><img src="${ctx}/UiMaker/images/t01.png" /></span>添加</a></li>
-            <li class="click"><span><img src="${ctx}/UiMaker/images/t02.png" /></span>修改</li>
-            <li><span><img src="${ctx}/UiMaker/images/t03.png" /></span>删除</li>
-            <li><span><img src="${ctx}/UiMaker/images/t04.png" /></span>统计</li>
-        </ul>
-        <ul class="toolbar1">
-            <li><span><img src="${ctx}/UiMaker/images/t05.png" /></span>设置</li>
-        </ul>
+    	<form action="${ctx}/lendServlet?type=toLend" method="post">
+		    <ul class="forminfo">
+			    <li>
+			    	读者编号：<input name="id" type="text" class="dfinput" />
+			    	<label>&nbsp;</label><input name="button" type="submit" class="btn" value="确认保存"/>
+			    </li>
+		    </ul>
+    	</form>
+    	<div class="welinfo">
+		    <span><img src="${ctx}/UiMaker/images/sun.png" alt="天气" /></span>
+		    <b>账号：${obj.username},姓名：${obj.realname}，最大借阅数量：${obj.maxNumber},未还图书：${obj.myLendNumber}</b>
+    	</div>
     </div>
     <table class="tablelist">
         <thead>
@@ -55,48 +58,49 @@ $(document).ready(function(){
                 <th><input name="" type="checkbox" value="" /></th>
                 <th>编号<i class="sort"><img src="${ctx}/UiMaker/images/px.gif" /></i></th>
                 <th>书名</th>
-                <th>书号</th>
-                <th>类型</th>
                 <th>作者</th>
                 <th>出版社</th>
+                <th>数量</th>
+                <th>借出数量</th>
+                <th>剩余数量</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="obj" items="${bookList}"> 
             <tr>
-                <td><input name="" type="checkbox" value="" /></td>
+                <td><input name="checkboxId" type="checkbox"/></td>
                 <td>${obj.id}</td>
                 <td>${obj.bookName}</td>
-                <td>${obj.bookNumber}</td>
-                <td>${obj.categoryName}</td>
                 <td>${obj.author}</td>
                 <td>${obj.publisher}</td>
+                <td>${obj.bookNumber}</td>
+                <td>${obj.lendedNumber}</td>
+                <td>${obj.remainNumber}</td>
                 <td>
-                	<a href="${ctx}/bookServlet?type=get&id=${obj.id}" class="tablelink"> 编辑</a>
-                    <a href="${ctx}/bookServlet?type=delete&id=${obj.id}" class="tablelink" onclick="return confirm('确定要删除？');"> 删除</a>
+                	<a href="${ctx}/categoryServlet?type=get&id=${obj.id}" class="tablelink"> 编辑</a>
+                    <a href="${ctx}/categoryServlet?type=delete&id=${obj.id}" class="tablelink" onclick="return confirm('确定要删除？');"> 删除</a>
                     <a href="#" class="tablelink"> 重设密码</a>
                 </td>
             </tr>
             </c:forEach>
         </tbody>
     </table>
+    
     <div class="pagin">
-        <div class="message">共<i class="blue">${totalRecords}</i>条记录，当前显示第&nbsp;<i class="blue">${page}</i>页</div>
+        <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
         <ul class="paginList">
-        	<c:if test="${page!=1}">
-            	<li class="paginItem"><a href="${ctx}/bookServlet?type=getAll&page=${page-1<1 ? 1:page-1}"><span class="pagepre"></span></a></li>
-            </c:if>
-            
-            <c:forEach begin="1" end="${totalPages}" var="obj">
-            	<li class="paginItem"><a href="${ctx}/bookServlet?type=getAll&page=${obj}">${obj}</a></li>
-            </c:forEach>
-            <c:if test="${page!=totalPages}">
-            	<li class="paginItem"><a href="${ctx}/bookServlet?type=getAll&page=${page+1>totalPages ? totalPages:page+1}"><span class="pagenxt"></span></a></li>
-        	</c:if>
+            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+            <li class="paginItem"><a href="javascript:;">1</a></li>
+            <li class="paginItem current"><a href="javascript:;">2</a></li>
+            <li class="paginItem"><a href="javascript:;">3</a></li>
+            <li class="paginItem"><a href="javascript:;">4</a></li>
+            <li class="paginItem"><a href="javascript:;">5</a></li>
+            <li class="paginItem more"><a href="javascript:;">...</a></li>
+            <li class="paginItem"><a href="javascript:;">10</a></li>
+            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
         </ul>
     </div>
-    
 </div>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');

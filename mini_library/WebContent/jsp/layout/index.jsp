@@ -24,9 +24,9 @@
     
     
     <div class="welinfo">
-    <span><img src="${ctx}/UiMaker/images/sun.png" alt="天气" /></span>
-    <b>Admin早上好，欢迎使用信息管理系统</b>(admin@uimaker.com)
-    <a href="#">帐号设置</a>
+	    <span><img src="${ctx}/UiMaker/images/sun.png" alt="天气" /></span>
+	    <b>Admin早上好，欢迎使用信息管理系统</b>(admin@uimaker.com)
+	    <a href="#">帐号设置</a>
     </div>
     
     <div class="welinfo">

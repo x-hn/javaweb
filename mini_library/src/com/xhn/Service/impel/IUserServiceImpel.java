@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xhn.DAO.IUserInfoDao;
 import com.xhn.DAO.impel.IUserDaoImpel;
+import com.xhn.Service.ILendService;
 import com.xhn.Service.IUserService;
 import com.xhn.constans.UserConstant;
 import com.xhn.model.userInfo;
@@ -11,6 +12,7 @@ import com.xhn.model.userInfo;
 public class IUserServiceImpel implements IUserService {
 	
 	private IUserInfoDao userinfo = new IUserDaoImpel();
+	private ILendService lendService = new ILendServiceImpel();
 
 	@Override
 	public userInfo login(String username, String password) {
@@ -48,7 +50,10 @@ public class IUserServiceImpel implements IUserService {
 
 	@Override
 	public userInfo get(int id) {
-		return this.userinfo.get(id);
+		userInfo user = this.userinfo.get(id);
+		int myLendNumber = this.lendService.countByUserId(user.getId());
+		user.setMyLendNumber(myLendNumber);
+		return user;
 	}
 
 	@Override

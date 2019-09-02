@@ -10,6 +10,7 @@ public class userInfo {
 	private int maxNumber;
 	
 	private String roleName;//不会存储在数据表中，临时生成，用于页面显示，代替VO
+	private int myLendNumber;
 	
 	public userInfo(){
 		super();
@@ -75,6 +76,17 @@ public class userInfo {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+	
+	public int getMyLendNumber() {
+		return myLendNumber;
+	}
+
+
+	public void setMyLendNumber(int myLendNumber) {
+		this.myLendNumber = myLendNumber;
+	}
+
+
 	@Override
 	public String toString() {
 		return "userInfo [id=" + id + ", username=" + username + ", realname=" + realname + ", email=" + email

@@ -112,6 +112,7 @@ public class BaseDAO{
 			e.printStackTrace();
 		}		
 	}
+	
 
 	public int count(String sql, Object[] obj) {
 		this.queryBySql(sql, obj);
