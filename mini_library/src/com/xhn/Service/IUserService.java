@@ -18,4 +18,6 @@ public interface IUserService {
 
 	void update(userInfo user);
 
+	List<userInfo> getAll(int page, int pageSizes);
+
 }

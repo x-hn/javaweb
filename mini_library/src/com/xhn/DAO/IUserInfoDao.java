@@ -16,4 +16,6 @@ public interface IUserInfoDao {
 	public List<userInfo> getAll();
 
 	public userInfo login(String username, String password);
+
+	public List<userInfo> getAll(int page, int pageSizes);
 }

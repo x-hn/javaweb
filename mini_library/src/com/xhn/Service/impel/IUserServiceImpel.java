@@ -56,4 +56,9 @@ public class IUserServiceImpel implements IUserService {
 		this.userinfo.update(user);
 	}
 
+	@Override
+	public List<userInfo> getAll(int page, int pageSizes) {
+		return this.userinfo.getAll(page,pageSizes);
+	}
+
 }

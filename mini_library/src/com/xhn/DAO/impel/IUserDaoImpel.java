@@ -106,4 +106,31 @@ public class IUserDaoImpel extends BaseDAO implements IUserInfoDao {
 		return userinfo;
 	}
 
+	@Override
+	public List<userInfo> getAll(int page, int pageSizes) {
+		List<userInfo> list=new ArrayList<>();
+		String sql="select * from userinfo limit ?,?";
+		int beginIndex=(page-1)*pageSizes;
+		Object[] obj=new Object[] {beginIndex,pageSizes};
+		this.queryBySql(sql, obj);
+		try {
+			while(rs.next()) {
+				userInfo userinfo = new userInfo();
+				userinfo.setId(rs.getInt("id"));
+				userinfo.setUsername(rs.getString("username"));
+				userinfo.setRealname(rs.getString("realname"));
+				userinfo.setEmail(rs.getString("email"));
+				userinfo.setPassword(rs.getString("password"));
+				userinfo.setRole(rs.getInt("role"));
+				userinfo.setMaxNumber(rs.getInt("maxNumber"));
+				list.add(userinfo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			this.close(conn, st, rs);
+		}
+		return list;
+	}
+
 }
