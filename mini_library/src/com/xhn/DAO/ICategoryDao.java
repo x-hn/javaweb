@@ -15,4 +15,6 @@ public int add(Category category);
 	public Category get(int id);
 	
 	public List<Category> getAll();
+
+	public List<Category> getAll(int page, int pageSizes);
 }

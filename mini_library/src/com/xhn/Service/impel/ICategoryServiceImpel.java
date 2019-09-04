@@ -30,5 +30,9 @@ public class ICategoryServiceImpel implements ICategoryService {
 	public void update(Category category) {
 		this.cate.update(category);
 	}
+	@Override
+	public List<Category> getAll(int page, int pageSizes) {
+		return this.cate.getAll(page,pageSizes);
+	}
 
 }

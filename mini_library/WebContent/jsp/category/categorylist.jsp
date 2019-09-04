@@ -74,33 +74,19 @@ $(document).ready(function(){
         </tbody>
     </table>
     <div class="pagin">
-        <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <div class="message">共<i class="blue">${totalRecords}</i>条记录，当前显示第&nbsp;<i class="blue">${page}</i>页</div>
         <ul class="paginList">
-            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-            <li class="paginItem"><a href="javascript:;">1</a></li>
-            <li class="paginItem current"><a href="javascript:;">2</a></li>
-            <li class="paginItem"><a href="javascript:;">3</a></li>
-            <li class="paginItem"><a href="javascript:;">4</a></li>
-            <li class="paginItem"><a href="javascript:;">5</a></li>
-            <li class="paginItem more"><a href="javascript:;">...</a></li>
-            <li class="paginItem"><a href="javascript:;">10</a></li>
-            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        	<c:if test="${page!=1}">
+            	<li class="paginItem"><a href="${ctx}/categoryServlet?type=getAll&page=${page-1<1 ? 1:page-1}"><span class="pagepre"></span></a></li>
+            </c:if>
+            
+            <c:forEach begin="1" end="${totalPages}" var="obj">
+            	<li class="paginItem"><a href="${ctx}/categoryServlet?type=getAll&page=${obj}">${obj}</a></li>
+            </c:forEach>
+            <c:if test="${page!=totalPages}">
+            	<li class="paginItem"><a href="${ctx}/categoryServlet?type=getAll&page=${page+1>totalPages ? totalPages:page+1}"><span class="pagenxt"></span></a></li>
+        	</c:if>
         </ul>
-    </div>
-    <div class="tip">
-        <div class="tiptop"><span>提示信息</span><a></a></div>
-        <div class="tipinfo"> 
-			<span><img src="${ctx}/UiMaker/images/ticon.png" /></span>
-            <div class="tipright">
-                姓名：<input type="text"/>
-				<p>是否确认对信息的修改 ？</p>
-                <cite>如果是请点击确定按钮 ，否则请点取消。</cite> </div>
-        	</div>
-        <div class="tipbtn">
-            <input name="" type="button"  class="sure" value="确定" />
-            &nbsp;
-            <input name="" type="button"  class="cancel" value="取消" />
-        </div>
     </div>
 </div>
 <script type="text/javascript">

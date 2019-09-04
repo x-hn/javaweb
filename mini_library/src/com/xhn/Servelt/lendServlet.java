@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xhn.DAO.BaseDAO;
 import com.xhn.Service.IBookService;
-import com.xhn.Service.ILendService;
 import com.xhn.Service.IUserService;
 import com.xhn.Service.impel.IBookServiceImpel;
-import com.xhn.Service.impel.ILendServiceImpel;
 import com.xhn.Service.impel.IUserServiceImpel;
 import com.xhn.model.Book;
 import com.xhn.model.userInfo;
@@ -22,9 +21,10 @@ public class lendServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ILendService lendService=new ILendServiceImpel();
+	//private ILendService lendService=new ILendServiceImpel();
 	private IUserService userService=new IUserServiceImpel();
 	private IBookService bookService=new IBookServiceImpel();
+	private BaseDAO baseDao = new BaseDAO();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,8 +44,16 @@ public class lendServlet extends HttpServlet {
 			if(id!=null && !id.equals("")) {
 				//获取用户基本信息
 				userInfo user = this.userService.get(Integer.parseInt(id));
-				//获取图书基本信息
 				List<Book> bookList=this.bookService.getAll();
+		
+				String sql="SELECT COUNT(*) FROM book where 1=1";
+				Object[] obj=new Object[] {};
+				//总记录数
+				int totalRecords=baseDao.count(sql,obj);
+				
+				request.setAttribute("totalRecords", totalRecords);
+				
+				
 				request.setAttribute("obj", user);
 				request.setAttribute("bookList", bookList);
 				request.getRequestDispatcher("/jsp/lend/toLend.jsp").forward(request, response);

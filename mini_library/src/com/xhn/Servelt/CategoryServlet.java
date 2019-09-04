@@ -9,14 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xhn.DAO.BaseDAO;
 import com.xhn.Service.ICategoryService;
 import com.xhn.Service.impel.ICategoryServiceImpel;
+import com.xhn.model.Book;
 import com.xhn.model.Category;
+import com.xhn.model.userInfo;
 @WebServlet("/categoryServlet")
 public class CategoryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private ICategoryService categoryService=new ICategoryServiceImpel();
+	private BaseDAO baseDao=new BaseDAO();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,7 +76,41 @@ public class CategoryServlet extends HttpServlet {
 		}
 	}
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Category> categoryList = this.categoryService.getAll();
+		
+		
+		//当前页
+		String p=request.getParameter("page");
+		int page;
+		try {
+			page=Integer.valueOf(p);
+		} catch (Exception e) {
+			page=1;
+		}
+		//每页页数
+		int pageSizes=3;
+		//开始索引
+		int beginIndex=(page-1)*pageSizes;
+
+		List<Category> categoryList = this.categoryService.getAll(page,pageSizes);
+
+		String sql="SELECT COUNT(*) FROM book where 1=1";
+		Object[] obj=new Object[] {};
+		//总记录数
+		int totalRecords=baseDao.count(sql,obj);
+		//总页数
+		int totalPages=totalRecords % pageSizes ==0?totalRecords / pageSizes:totalRecords / pageSizes +1;
+		//结束索引
+		int endIndex=beginIndex+pageSizes;
+		if(endIndex>totalRecords) {
+			endIndex=totalRecords;
+		}
+		request.setAttribute("page", page);
+		request.setAttribute("totalRecords", totalRecords);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("beginIndex", beginIndex);
+		request.setAttribute("endIndex", endIndex);
+		request.setAttribute("pageSizes", pageSizes);
+		//请求转发（在请求中保存数据）
 		request.setAttribute("categoryList", categoryList);
 		request.getRequestDispatcher("/jsp/category/categorylist.jsp").forward(request, response);
 	}

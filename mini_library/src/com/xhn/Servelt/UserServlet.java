@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,10 +40,11 @@ public class UserServlet extends HttpServlet {
 		String realname = request.getParameter("realname");
 		String email = request.getParameter("email");
 		String role = request.getParameter("role");
+		String isUserCookie=request.getParameter("isUserCookie");
 		String id = request.getParameter("id");
 		
 		if(type.equals("login")) {
-			login(request, response, username, password,session);
+			login(request, response, username, password,session,isUserCookie);
 		}else if(type.equals("loginOut")) {
 			loginOut(request, response, session);
 		}else if(type.equals("getAll")) {
@@ -139,10 +141,29 @@ public class UserServlet extends HttpServlet {
 		session.removeAttribute("loginOut");
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
-	private void login(HttpServletRequest request, HttpServletResponse response, String username, String password,HttpSession session)
+	private void login(HttpServletRequest request, HttpServletResponse response, String username, String password,HttpSession session,String isUserCookie)
 			throws ServletException, IOException {
 		userInfo userinfo = this.userService.login(username,password);
 		if(userinfo!=null) {
+			//判断是否记住登录状态
+			if(isUserCookie!=null) {
+				Cookie usernameCookie=new Cookie("username",username);
+				Cookie passwordCookie=new Cookie("password",password);
+				usernameCookie.setMaxAge(7*24*60*60);
+				passwordCookie.setMaxAge(7*24*60*60);
+				response.addCookie(usernameCookie);
+				response.addCookie(passwordCookie);
+			}else {
+				Cookie[] cookie=request.getCookies();
+				if(cookie!=null && cookie.length>0) {
+					for(Cookie cookies:cookie) {
+						if(cookies.getName().equalsIgnoreCase("username")||cookies.getName().equalsIgnoreCase("password")) {
+							cookies.setMaxAge(0);
+							response.addCookie(cookies);
+						}
+					}
+				}
+			}
 			session.setAttribute("loginUser", userinfo);
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 		}else {

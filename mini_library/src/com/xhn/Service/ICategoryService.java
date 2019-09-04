@@ -16,4 +16,6 @@ public interface ICategoryService {
 
 	void update(Category category);
 
+	List<Category> getAll(int page, int pageSizes);
+
 }

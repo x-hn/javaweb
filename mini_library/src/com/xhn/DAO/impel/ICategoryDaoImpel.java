@@ -72,4 +72,26 @@ public class ICategoryDaoImpel extends BaseDAO implements ICategoryDao {
 		return list;
 	}
 
+	@Override
+	public List<Category> getAll(int page, int pageSizes) {
+		List<Category> list=new ArrayList<>();
+		String sql="select * from category limit ?,?";
+		int beginIndex=(page-1)*pageSizes;
+		Object[] obj=new Object[] {beginIndex,pageSizes};
+		this.queryBySql(sql, obj);
+		try {
+			while(rs.next()) {
+				Category category = new Category();
+				category.setId(rs.getInt("id"));
+				category.setCategoryName(rs.getString("categoryName"));
+				list.add(category);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			this.close(conn, st, rs);
+		}
+		return list;
+	}
+
 }

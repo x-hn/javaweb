@@ -18,9 +18,23 @@
     })  
 });  
 </script> 
-
+	
 </head>
-
+	<%
+		String username="";
+		String password="";
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equalsIgnoreCase("username")){
+					username=cookie.getValue();
+				}
+				if(cookie.getName().equalsIgnoreCase("password")){
+					password=cookie.getValue();
+				}
+			}
+		}
+	%>
 <body style="background-color:#1c77ac; background-image:url(${ctx}/UiMaker/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
 
@@ -50,18 +64,18 @@
 	    <ul>
 	    <li><input name="username" type="text" class="loginuser" value=""/></li>
 	    <li><input name="password" type="password" class="loginpwd" value="" /></li>
-	    <li><input name="buttlogin" type="submit" class="loginbtn" value="登录" /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+	    <li>
+	    	<input name="buttlogin" type="submit" class="loginbtn" value="登录" />
+	    	<label><input name="isUserCookie" type="checkbox" checked="checked" />记住密码</label>
+	    	<label><a href="#">忘记密码？</a></label>
+	    </li>
 	    </ul>
     </form>
     
     </div>
     
     </div>
-    
-    
-    
-    <div class="loginbm">版权所有  2013  <a href="http://www.mycodes.net">源码之家</a> </div>.
-	
+    	
     
 </body>
 
