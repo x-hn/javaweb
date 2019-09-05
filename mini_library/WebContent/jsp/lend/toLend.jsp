@@ -49,7 +49,14 @@ $(document).ready(function(){
     	</form>
     	<div class="welinfo">
 		    <span><img src="${ctx}/UiMaker/images/sun.png" alt="天气" /></span>
-		    <b>账号：${obj.username},姓名：${obj.realname}，最大借阅数量：${obj.maxNumber},未还图书：${obj.myLendNumber}</b>
+		    <c:choose>
+		    	<c:when test="${empty user}">
+		    		${message}
+		    	</c:when>
+		    	<c:otherwise>
+		    		<b>账号：${user.username},姓名：${user.realname}，最大借阅数量：${user.maxNumber},未还图书：${user.myLendNumber}</b>
+		    	</c:otherwise>
+		    </c:choose>
     	</div>
     </div>
     <table class="tablelist">
@@ -78,8 +85,15 @@ $(document).ready(function(){
                 <td>${obj.lendedNumber}</td>
                 <td>${obj.remainNumber}</td>
                 <td>
-                	<a href="${ctx}/categoryServlet?type=get&id=${obj.id}" class="tablelink"> 借书</a>
-                    <a href="${ctx}/categoryServlet?type=delete&id=${obj.id}" class="tablelink" > 还书</a>
+                <c:choose>
+			    	<c:when test="${user.maxNumber eq user.myLendNumber}">
+			    		<a href="#" class="tablelink"> 借书</a>
+			    	</c:when>
+			    	<c:otherwise>
+			    		<a href="${ctx}/lendServlet?type=lend&userId=${user.id}&bookId=${obj.id}" class="tablelink" onclick="return confirm('确定要借阅？');"> 借书</a>
+			    	</c:otherwise>
+		    	</c:choose>
+                	
                 </td>
             </tr>
             </c:forEach>
