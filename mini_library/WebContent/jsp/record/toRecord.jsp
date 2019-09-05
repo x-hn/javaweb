@@ -80,11 +80,11 @@ $(document).ready(function(){
                 <td>${obj.estimateReturnTime}</td>
                 <td>
                 <c:choose>
-			    	<c:when test="${user.maxNumber eq user.myLendNumber}">
-			    		<a href="#" class="tablelink"> 借书</a>
+			    	<c:when test="${user.myLendNumber gt 0}">
+			    		<a href="${ctx}/reserveServlet?type=reserve&userId=${user.id}&bookId=${obj.id}&lendDateTime=${obj.lendDateTime}" class="tablelink" onclick="return confirm('确定要还书？');"> 还书</a>
 			    	</c:when>
 			    	<c:otherwise>
-			    		<a href="${ctx}/lendServlet?type=lend&userId=${user.id}&bookId=${obj.id}" class="tablelink" onclick="return confirm('确定要借阅？');"> 借书</a>
+			    		<a href="#" class="tablelink"> 还书</a>
 			    	</c:otherwise>
 		    	</c:choose>
                 	

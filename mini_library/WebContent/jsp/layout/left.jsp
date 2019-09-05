@@ -43,7 +43,7 @@ $(function(){
         <div class="title"> <span><img src="${ctx}/UiMaker/images/leftico01.png" /></span>借阅管理</div>
         <ul class="menuson">
             <li><cite></cite><a href="${ctx}/jsp/lend/toLend.jsp" target="rightFrame">登记借书</a><i></i></li>
-            <li><cite></cite><a href="${ctx}/bookServlet?type=getAll" target="rightFrame">图书管理</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/jsp/reserve/toReserve.jsp" target="rightFrame">还书管理</a><i></i></li>
             <li><cite></cite><a href="${ctx}/categoryServlet?type=getAll" target="rightFrame">分类管理</a><i></i></li>
         </ul>
     </dd>

@@ -1,6 +1,7 @@
 package com.xhn.Servelt;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,18 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.xhn.DAO.BaseDAO;
 import com.xhn.Service.ILendService;
+import com.xhn.Service.IRecordService;
 import com.xhn.Service.IUserService;
 import com.xhn.Service.impel.ILendServiceImpel;
+import com.xhn.Service.impel.IRecordServiceImpel;
 import com.xhn.Service.impel.IUserServiceImpel;
 import com.xhn.model.Lend;
+import com.xhn.model.Record;
 import com.xhn.model.userInfo;
 
-@WebServlet("/reserveServlet")
-public class reserveServlet extends HttpServlet {
+@WebServlet("/recordServlet")
+public class RecordServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private ILendService lendservice = new ILendServiceImpel();
-	private IUserService userService=new IUserServiceImpel();
+	private IUserService userService = new IUserServiceImpel();
+	private IRecordService recordService = new IRecordServiceImpel(); 
 	private BaseDAO baseDao = new BaseDAO();
 	
 	@Override
@@ -38,13 +43,14 @@ public class reserveServlet extends HttpServlet {
 		
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
+		String userid = request.getParameter("userId");
 		 
 		
-		if(type.equals("toReserve")) {
+		if(type.equals("toRecord")) {
 			userInfo user = this.userService.get(Integer.parseInt(id));
 			List<Lend> lendlist = this.lendservice.get(Integer.parseInt(id));
 			
-			String sql="SELECT COUNT(*) FROM reserve where 1=1";
+			String sql="SELECT COUNT(*) FROM lend where 1=1";
 			Object[] obj=new Object[] {};
 			//总记录数
 			int totalRecords=baseDao.count(sql,obj);
@@ -52,11 +58,20 @@ public class reserveServlet extends HttpServlet {
 				request.setAttribute("totalRecords", totalRecords);
 				request.setAttribute("user", user);
 				request.setAttribute("lendlist", lendlist);
-				request.getRequestDispatcher("/jsp/reserve/toReserve.jsp").forward(request, response);
+				request.getRequestDispatcher("/jsp/record/toRecord.jsp").forward(request, response);
 			}else {
 				request.setAttribute("message", "查无此人！！！");
-				request.getRequestDispatcher("/jsp/lend/toLend.jsp").forward(request, response);
+				request.getRequestDispatcher("/jsp/record/toRecord.jsp").forward(request, response);
 			}
+		}else if(type.equals("record")) {
+			Record record = new Record();
+			record.setUserId(userId);
+			record.setRealname(realname);
+			record.setBookId(bookId);
+			record.setBookName(bookName);
+			record.setLendDateTime(lendDateTime);
+			record.setActualReturnTime(new Date());
+			int res = this.recordService.add(record);
 		}
 	}
 	
