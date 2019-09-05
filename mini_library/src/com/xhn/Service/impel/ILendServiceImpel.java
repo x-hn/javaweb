@@ -1,6 +1,7 @@
 package com.xhn.Service.impel;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -30,6 +31,10 @@ public class ILendServiceImpel implements ILendService {
 			lend.setEstimateReturnTime(DateUtils.addDays(new Date(),LendConstant.LEND_MAX_DAYS_TEACHER));
 		}
 		return this.lendao.add(lend);
+	}
+	@Override
+	public List<Lend> get(int parseInt) {
+		return this.lendao.getUserId(parseInt);
 	}
 
 }

@@ -52,7 +52,7 @@ public class lendServlet extends HttpServlet {
 				userInfo user = this.userService.get(Integer.parseInt(id));
 				List<Book> bookList=this.bookService.getAll();
 		
-				String sql="SELECT COUNT(*) FROM book where 1=1";
+				String sql="SELECT COUNT(*) FROM category where 1=1";
 				Object[] obj=new Object[] {};
 				//总记录数
 				int totalRecords=baseDao.count(sql,obj);

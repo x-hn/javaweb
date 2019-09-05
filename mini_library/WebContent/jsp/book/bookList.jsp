@@ -63,7 +63,7 @@ $(document).ready(function(){
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="obj" items="${bookList}"> 
+            <c:forEach var="obj" items="${book}"> 
             <tr>
                 <td><input name="" type="checkbox" value="" /></td>
                 <td>${obj.id}</td>

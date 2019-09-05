@@ -93,7 +93,7 @@ public class CategoryServlet extends HttpServlet {
 
 		List<Category> categoryList = this.categoryService.getAll(page,pageSizes);
 
-		String sql="SELECT COUNT(*) FROM book where 1=1";
+		String sql="SELECT COUNT(*) FROM category where 1=1";
 		Object[] obj=new Object[] {};
 		//总记录数
 		int totalRecords=baseDao.count(sql,obj);

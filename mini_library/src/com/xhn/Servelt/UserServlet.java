@@ -112,7 +112,7 @@ public class UserServlet extends HttpServlet {
 
 		List<userInfo> modelList = this.userService.getAll(page,pageSizes);
 
-		String sql="SELECT COUNT(*) FROM book where 1=1";
+		String sql="SELECT COUNT(*) FROM userInfo where 1=1";
 		Object[] obj=new Object[] {};
 		//总记录数
 		int totalRecords=baseDAO.count(sql,obj);

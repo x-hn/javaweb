@@ -63,7 +63,21 @@ public class IUserServiceImpel implements IUserService {
 
 	@Override
 	public List<userInfo> getAll(int page, int pageSizes) {
-		return this.userinfo.getAll(page,pageSizes);
+		List<userInfo> list=this.userinfo.getAll(page,pageSizes);
+		if (list!=null && list.size()>0) {
+			for(userInfo u:list) {
+				if(u.getRole()==0) {
+					u.setRoleName(UserConstant.ROLE_NAME_ADMIN);
+				}else if(u.getRole()==1) {
+					u.setRoleName(UserConstant.ROLE_NAME_TEACHER);
+				}else if(u.getRole()==2) {
+					u.setRoleName(UserConstant.ROLE_NAME_STUDENT);
+				}else {
+					u.setRoleName(UserConstant.ROLE_NAME_EMPTY);
+				}
+			}
+		}
+		return list;
 	}
 
 }

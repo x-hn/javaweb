@@ -91,7 +91,7 @@ public class BookServlet extends HttpServlet {
 		//开始索引
 		int beginIndex=(page-1)*pageSizes;
 
-		List<Book> bookList = this.bookService.getAll(page,pageSizes);
+		List<Book> book = this.bookService.getAll(page,pageSizes);
 
 		String sql="SELECT COUNT(*) FROM book where 1=1";
 		Object[] obj=new Object[] {};
@@ -111,7 +111,7 @@ public class BookServlet extends HttpServlet {
 		request.setAttribute("endIndex", endIndex);
 		request.setAttribute("pageSizes", pageSizes);
 		//请求转发（在请求中保存数据）
-		request.setAttribute("bookList", bookList);
+		request.setAttribute("book", book);
 		request.getRequestDispatcher("/jsp/book/bookList.jsp").forward(request, response);
 	}
 	

@@ -57,7 +57,21 @@ public class IBookServiceImpel implements IBookService {
 	}
 	@Override
 	public List<Book> getAll(int page, int pageSizes) {
-		return this.book.getAll(page,pageSizes);
+		List<Book> list = this.book.getAll(page,pageSizes);
+		if(list!=null && list.size()>0) {
+			for(Book b:list) {
+				if(b.getCategoryId()==1) {
+					b.setCategoryName((category.get(1)).getCategoryName());
+				}else if(b.getCategoryId()==2 || b.getCategoryId()==4) {
+					b.setCategoryName((category.get(2)).getCategoryName());
+				}else if(b.getCategoryId()==3) {
+					b.setCategoryName((category.get(3)).getCategoryName());
+				}else {
+					b.setCategoryName((category.get(5)).getCategoryName());
+				}
+			}
+		}
+		return list;
 	}
 
 }

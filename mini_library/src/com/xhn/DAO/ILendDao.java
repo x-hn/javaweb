@@ -13,6 +13,8 @@ public interface ILendDao {
 	
 	public Lend get(int id);
 	
+	public List<Lend> getUserId(int userid);
+	
 	public List<Lend> getAll();
 	public int countByBookId(int id);
 	public int countByUserId(int id);

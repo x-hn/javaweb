@@ -92,4 +92,28 @@ public class ILendDaoImpel extends BaseDAO implements ILendDao {
 		return this.count(sql, params);
 	}
 
+	@Override
+	public List<Lend> getUserId(int userid) {
+		List<Lend> list = new ArrayList<>();
+		String sql = "select * from lend where userId="+userid;
+		Object[] params = new Object[] {};
+		this.queryBySql(sql, params);
+		try {
+			while(rs.next()) {
+				Lend lend = new Lend();
+				lend.setId(rs.getInt("id"));
+				lend.setUserId(rs.getInt("userId"));
+				lend.setBookId(rs.getInt("bookId"));
+				lend.setLendDateTime(rs.getDate("lendDateTime"));
+				lend.setEstimateReturnTime(rs.getDate("estimateReturnTime"));
+				list.add(lend);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			this.close(conn, st, rs);
+		}
+		return list;
+	}
+
 }
