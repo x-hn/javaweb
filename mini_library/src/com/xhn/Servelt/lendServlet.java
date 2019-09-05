@@ -1,6 +1,7 @@
 package com.xhn.Servelt;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -71,7 +72,7 @@ public class lendServlet extends HttpServlet {
 			Lend lend = new Lend();
 			lend.setUserId(Integer.parseInt(userId));
 			lend.setBookId(Integer.parseInt(bookId));
-			
+			lend.setLendDateTime(new Date());
 			int res = this.lendService.add(lend);
 			if(res>0) {
 				request.setAttribute("message", "借阅成功");

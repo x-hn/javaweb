@@ -14,5 +14,9 @@ public interface ILendService {
 
 	List<Lend> get(int parseInt);
 
+	Lend getLend(int parseInt);
+
+	int delete(int id);
+
 
 }

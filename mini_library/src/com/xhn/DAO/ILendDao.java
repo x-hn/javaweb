@@ -13,6 +13,8 @@ public interface ILendDao {
 	
 	public Lend get(int id);
 	
+	public Lend getUser(int userid);
+	
 	public List<Lend> getUserId(int userid);
 	
 	public List<Lend> getAll();

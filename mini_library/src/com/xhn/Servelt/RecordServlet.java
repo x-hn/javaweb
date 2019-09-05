@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xhn.DAO.BaseDAO;
+import com.xhn.Service.IBookService;
 import com.xhn.Service.ILendService;
 import com.xhn.Service.IRecordService;
 import com.xhn.Service.IUserService;
+import com.xhn.Service.impel.IBookServiceImpel;
 import com.xhn.Service.impel.ILendServiceImpel;
 import com.xhn.Service.impel.IRecordServiceImpel;
 import com.xhn.Service.impel.IUserServiceImpel;
+import com.xhn.model.Book;
 import com.xhn.model.Lend;
 import com.xhn.model.Record;
 import com.xhn.model.userInfo;
@@ -28,6 +31,7 @@ public class RecordServlet extends HttpServlet {
 	private ILendService lendservice = new ILendServiceImpel();
 	private IUserService userService = new IUserServiceImpel();
 	private IRecordService recordService = new IRecordServiceImpel(); 
+	private IBookService bookService=new IBookServiceImpel();
 	private BaseDAO baseDao = new BaseDAO();
 	
 	@Override
@@ -44,6 +48,7 @@ public class RecordServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
 		String userid = request.getParameter("userId");
+		String bookid = request.getParameter("bookId");
 		 
 		
 		if(type.equals("toRecord")) {
@@ -65,13 +70,22 @@ public class RecordServlet extends HttpServlet {
 			}
 		}else if(type.equals("record")) {
 			Record record = new Record();
-			record.setUserId(userId);
-			record.setRealname(realname);
-			record.setBookId(bookId);
-			record.setBookName(bookName);
-			record.setLendDateTime(lendDateTime);
+			userInfo user = this.userService.get(Integer.parseInt(userid));
+			Book book = this.bookService.get(Integer.parseInt(bookid));
+			Lend lend = this.lendservice.getLend(Integer.parseInt(bookid));
+			record.setUserId(Integer.parseInt(userid));
+			record.setRealname(user.getRealname());
+			record.setBookId(Integer.parseInt(bookid));
+			record.setBookName(book.getBookName());
+			record.setLendDateTime(lend.getLendDateTime());
 			record.setActualReturnTime(new Date());
 			int res = this.recordService.add(record);
+			if(res>0) {
+				int result = this.lendservice.delete(lend.getId());
+				if(result>0) {
+					request.getRequestDispatcher("/jsp/record/toRecord.jsp").forward(request, response);
+				}
+			}
 		}
 	}
 	

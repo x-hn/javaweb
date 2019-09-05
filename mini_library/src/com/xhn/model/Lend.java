@@ -9,7 +9,7 @@ public class Lend {
 	private int bookId;
 	private Date lendDateTime;//借阅时间	
 	private Date estimateReturnTime;//预计归还时间	
-	
+	private String bookName;
 	
 	public int getId() {
 		return id;
@@ -40,6 +40,13 @@ public class Lend {
 	}
 	public void setEstimateReturnTime(Date estimateReturnTime) {
 		this.estimateReturnTime = estimateReturnTime;
+	}
+	
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
 	@Override
 	public String toString() {

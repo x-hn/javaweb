@@ -8,23 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.xhn.DAO.BaseDAO;
-import com.xhn.DAO.IBookDao;
-import com.xhn.DAO.impel.IBookDaoImpel;
 import com.xhn.Service.IBookService;
-import com.xhn.Service.IUserService;
 import com.xhn.Service.impel.IBookServiceImpel;
-import com.xhn.Service.impel.IUserServiceImpel;
-import com.xhn.constans.UserConstant;
 import com.xhn.model.Book;
-import com.xhn.model.userInfo;
 @WebServlet("/bookServlet")
 public class BookServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	//private IBookDao book =new IBookDaoImpel();
 	private IBookService bookService=new IBookServiceImpel();
 	private BaseDAO baseDao = new BaseDAO();
 	

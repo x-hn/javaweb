@@ -39,7 +39,7 @@ $(document).ready(function(){
 </div>
 <div class="rightinfo">
     <div class="tools">
-    	<form action="${ctx}/reserveServlet?type=toReserve" method="post">
+    	<form action="${ctx}/recordServlet?type=toRecord" method="post">
 		    <ul class="forminfo">
 			    <li>
 			    	读者编号：<input name="id" type="text" class="dfinput" />
@@ -64,7 +64,7 @@ $(document).ready(function(){
             <tr>
                 <th><input name="" type="checkbox" value="" /></th>
                 <th>编号<i class="sort"><img src="${ctx}/UiMaker/images/px.gif" /></i></th>
-                <th>书号</th>
+                <th>书名</th>
                 <th>借书时间</th>
                 <th>还书时间</th>
                 <th>操作</th>
@@ -75,13 +75,13 @@ $(document).ready(function(){
             <tr>
                 <td><input name="checkboxId" type="checkbox"/></td>
                 <td>${obj.id}</td>
-                <td>${obj.bookId}</td>
+                <td>${obj.bookName}</td>
                 <td>${obj.lendDateTime}</td>
                 <td>${obj.estimateReturnTime}</td>
                 <td>
                 <c:choose>
 			    	<c:when test="${user.myLendNumber gt 0}">
-			    		<a href="${ctx}/reserveServlet?type=reserve&userId=${user.id}&bookId=${obj.id}&lendDateTime=${obj.lendDateTime}" class="tablelink" onclick="return confirm('确定要还书？');"> 还书</a>
+			    		<a href="${ctx}/recordServlet?type=record&userId=${user.id}&bookId=${obj.id}" class="tablelink" onclick="return confirm('确定要还书？');"> 还书</a>
 			    	</c:when>
 			    	<c:otherwise>
 			    		<a href="#" class="tablelink"> 还书</a>
