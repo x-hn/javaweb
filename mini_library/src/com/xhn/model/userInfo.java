@@ -25,6 +25,10 @@ public class userInfo {
 		this.password = password;
 		this.role = role;
 	}
+	public userInfo(String password) {
+		super();
+		this.password = password;
+	}
 
 	public int getId() {
 		return id;

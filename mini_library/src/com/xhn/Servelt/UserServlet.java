@@ -42,6 +42,8 @@ public class UserServlet extends HttpServlet {
 		String role = request.getParameter("role");
 		String isUserCookie=request.getParameter("isUserCookie");
 		String id = request.getParameter("id");
+		String password1 = request.getParameter("password1");
+		String password2 = request.getParameter("password2");
 		
 		if(type.equals("login")) {
 			login(request, response, username, password,session,isUserCookie);
@@ -57,6 +59,27 @@ public class UserServlet extends HttpServlet {
 			get(request, response, id);
 		}else if(type.equals("updateUser")) {
 			updateUser(request, response, username, realname, email, role, id);
+		}else if(type.equals("editPassword")) {
+			editpassword(request, response, id, password1, password2);
+		}else if(type.equals("mydata")) {
+			
+		}else if(type.equals("getId")) {
+			session.setAttribute("id", id);
+			request.getRequestDispatcher("/jsp/user/editpassword.jsp").forward(request, response);
+		}else if(type.equals("getID")) {
+			userInfo user = this.userService.get(Integer.parseInt(id));
+			session.setAttribute("user", user);
+			request.getRequestDispatcher("/jsp/user/myData.jsp").forward(request, response);
+		}
+	}
+	private void editpassword(HttpServletRequest request, HttpServletResponse response, String id, String password1,
+			String password2) throws ServletException, IOException {
+		if(password1.equals(password2)) {
+			userInfo user = new userInfo(password2);
+			System.out.println(Integer.parseInt(id));
+			user.setId(Integer.parseInt(id));
+			this.userService.updatePassword(user);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 	private void updateUser(HttpServletRequest request, HttpServletResponse response, String username, String realname,

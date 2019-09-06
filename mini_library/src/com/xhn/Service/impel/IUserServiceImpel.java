@@ -80,4 +80,9 @@ public class IUserServiceImpel implements IUserService {
 		return list;
 	}
 
+	@Override
+	public void updatePassword(userInfo userinfo) {
+		this.userinfo.updatePassword(userinfo);
+	}
+
 }

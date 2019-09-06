@@ -133,4 +133,11 @@ public class IUserDaoImpel extends BaseDAO implements IUserInfoDao {
 		return list;
 	}
 
+	@Override
+	public int updatePassword(userInfo userinfo) {
+		String sql = "update userinfo set password=? where id=?";
+		Object[] params = new Object[] {userinfo.getPassword(),userinfo.getId()};	
+		return this.updateBySql(sql, params);
+	}
+
 }

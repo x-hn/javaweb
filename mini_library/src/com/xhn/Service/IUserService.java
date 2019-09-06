@@ -20,4 +20,6 @@ public interface IUserService {
 
 	List<userInfo> getAll(int page, int pageSizes);
 
+	void updatePassword(userInfo userinfo);
+
 }

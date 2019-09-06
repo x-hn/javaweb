@@ -44,13 +44,12 @@ $(function(){
         <ul class="menuson">
             <li><cite></cite><a href="${ctx}/jsp/lend/toLend.jsp" target="rightFrame">登记借书</a><i></i></li>
             <li><cite></cite><a href="${ctx}/jsp/record/toRecord.jsp" target="rightFrame">还书管理</a><i></i></li>
-            <li><cite></cite><a href="${ctx}/categoryServlet?type=getAll" target="rightFrame">分类管理</a><i></i></li>
         </ul>
     </dd>
     <dd>
         <div class="title"> <span><img src="${ctx}/UiMaker/images/leftico02.png" /></span>我的借阅 </div>
         <ul class="menuson">
-            <li><cite></cite><a href="#">借阅记录</a><i></i></li>
+            <li><cite></cite><a href="jsp/record/myRecord.jsp">借阅记录</a><i></i></li>
             <li><cite></cite><a href="#">未还图书</a><i></i></li>      
             <li><cite></cite><a href="#">我的预约</a><i></i></li>        
         </ul>
@@ -58,15 +57,8 @@ $(function(){
     <dd>
         <div class="title"><span><img src="${ctx}/UiMaker/images/leftico03.png" /></span>编辑器</div>
         <ul class="menuson">
-            <li><cite></cite><a href="#">修改密码</a><i></i></li>
-            <li><cite></cite><a href="#">我的资料</a><i></i></li>            
-        </ul>
-    </dd>
-    <dd>
-        <div class="title"><span><img src="${ctx}/UiMaker/images/leftico04.png" /></span>日期管理</div>
-        <ul class="menuson">
-            <li><cite></cite><a href="#">自定义</a><i></i></li>            
-            <li><cite></cite><a href="#">其他</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/userServlet?type=getId&id=${loginUser.id}" target="rightFrame">修改密码</a><i></i></li>
+            <li><cite></cite><a href="${ctx}/userServlet?type=getID&id=${loginUser.id}" target="rightFrame">我的资料</a><i></i></li>            
         </ul>
     </dd>
 </dl>
