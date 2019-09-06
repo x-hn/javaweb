@@ -138,4 +138,11 @@ public class ILendDaoImpel extends BaseDAO implements ILendDao {
 		return lend;
 	}
 
+	@Override
+	public int countByBookIdUserId(int userid, int bookid) {
+		String sql = "select count(*) from lend where userId=? and bookId=?";
+		Object[] params = new Object[] {userid,bookid};
+		return this.count(sql, params);
+	}
+
 }

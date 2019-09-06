@@ -18,5 +18,7 @@ public interface ILendService {
 
 	int delete(int id);
 
+	int record(int parseInt, int parseInt2);
+
 
 }

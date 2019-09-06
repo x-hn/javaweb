@@ -20,4 +20,5 @@ public interface ILendDao {
 	public List<Lend> getAll();
 	public int countByBookId(int id);
 	public int countByUserId(int id);
+	public int countByBookIdUserId(int userid, int bookid);
 }

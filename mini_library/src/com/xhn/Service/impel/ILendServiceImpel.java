@@ -38,9 +38,9 @@ public class ILendServiceImpel implements ILendService {
 		return this.lendao.add(lend);
 	}
 	@Override
-	public List<Lend> get(int parseInt) {
-		List<Lend> list = this.lendao.getUserId(parseInt);
-		Lend lend = this.lendao.getUser(parseInt);
+	public List<Lend> get(int userid) {
+		List<Lend> list = this.lendao.getUserId(userid);
+		Lend lend = this.lendao.getUser(userid);
 		Book book = this.bookdao.get(lend.getBookId());
 		for(Lend l:list) {
 			l.setBookName(book.getBookName());
@@ -55,7 +55,9 @@ public class ILendServiceImpel implements ILendService {
 	public int delete(int id) {
 		return this.lendao.delete(id);
 	}
+	@Override
+	public int record(int userid, int bookid) {
+		return this.lendao.countByBookIdUserId(userid,bookid);
+	}
 	
-	
-
 }

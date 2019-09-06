@@ -69,14 +69,21 @@ public class lendServlet extends HttpServlet {
 				
 			}
 		}else if(type.equals("lend")) {
-			Lend lend = new Lend();
-			lend.setUserId(Integer.parseInt(userId));
-			lend.setBookId(Integer.parseInt(bookId));
-			lend.setLendDateTime(new Date());
-			int res = this.lendService.add(lend);
-			if(res>0) {
-				request.setAttribute("message", "借阅成功");
-				request.getRequestDispatcher("/jsp/lend/lendResult.jsp").forward(request, response);
+			int result = this.lendService.record(Integer.parseInt(userId),Integer.parseInt(bookId));
+			System.out.println(result);
+			if(result<=0) {
+				Lend lend = new Lend();
+				lend.setUserId(Integer.parseInt(userId));
+				lend.setBookId(Integer.parseInt(bookId));
+				lend.setLendDateTime(new Date());
+				int res = this.lendService.add(lend);
+				if(res>0) {
+					request.setAttribute("message", "借阅成功");
+					request.getRequestDispatcher("/jsp/lend/lendResult.jsp").forward(request, response);
+				}
+			}else {
+				request.setAttribute("message", "借阅失败，您已经借过该本书，不可以再次借阅！！！");
+				request.getRequestDispatcher("/jsp/lend/lendFail.jsp").forward(request, response);
 			}
 		}
 		
